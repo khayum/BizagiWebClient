@@ -44,16 +44,35 @@
         bizagiRequest["postBody"] = document.getElementById("txtJsonBody").value;   
     }
 
-    await postData(bizagiRequest).then(d => { document.getElementById("txtJsonResult").value = JSON.stringify(d); });
+    await postData(bizagiRequest);
    
 }
 
  async function postData(bizagiRequest) {
 
     let url = "/api/bizagi";
-    const response = await fetch(url, fnBindPostHeaderRequest(bizagiRequest));
-    return response.json();
+    await postRequest(url, bizagiRequest);   
       
+}
+
+async function postRequest(url = '', data = {}) {
+
+    fetch(url, fnBindPostHeaderRequest(data))
+        .then(function (response) {
+            if (!response.ok) {
+
+                document.getElementById("txtJsonResult").value = response.status;   
+                
+            }
+            return response;
+       }).then(function (response) {
+
+            document.getElementById("txtJsonResult").value = JSON.stringify(response);
+
+       }).catch(function (error) {
+            console.log(error);
+            document.getElementById("txtJsonResult").value = error;
+     });
 
 }
 

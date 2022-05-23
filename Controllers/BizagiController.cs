@@ -49,10 +49,12 @@ namespace BizagiWebClient.Controllers
                         }
 
                         break;
+
                     case "next":
 
 
                         break;
+
                     case "new":
 
 
@@ -69,8 +71,8 @@ namespace BizagiWebClient.Controllers
             }catch(Exception ex)
             {
 
-                JObject jObject = new JObject();
-                jObject["error"] = ex.ToString();
+                JObject jObject = new JObject();                
+                jObject["error"] = "Error while processing the request";
                 return jObject;
 
             }
